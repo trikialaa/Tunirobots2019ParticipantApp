@@ -124,6 +124,7 @@ public class FollowedTeamsFragment extends Fragment {
             mAdapter = new TeamRecyclerViewAdapter(getActivity(),teams);
             recyclerView.setAdapter(mAdapter);
             recyclerView.setNestedScrollingEnabled(false);
+
         }
     }
 

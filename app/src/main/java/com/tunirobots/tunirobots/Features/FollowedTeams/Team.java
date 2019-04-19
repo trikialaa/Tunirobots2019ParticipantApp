@@ -2,10 +2,11 @@ package com.tunirobots.tunirobots.Features.FollowedTeams;
 
 public class Team {
 
-    private String name;
     private String competition;
+    private String name;
 
-    public Team(String name, String competition) {
+
+    public Team(String competition, String name) {
         this.name = name;
         this.competition = competition;
     }

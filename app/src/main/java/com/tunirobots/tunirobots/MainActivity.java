@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.tunirobots.tunirobots.Features.FollowedTeams.FollowedTeamsFragment;
 import com.tunirobots.tunirobots.Features.InsatMap.MapFragment;
+import com.tunirobots.tunirobots.Features.Matches.MatchsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment, new MapFragment(),null);
+            fragmentTransaction.add(R.id.fragment, new MatchsFragment(),null);
             fragmentTransaction.commit();
         }
 
