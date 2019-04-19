@@ -86,4 +86,8 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
         matches.add(position, match);
         notifyItemInserted(position);
     }
+
+    public void changeItems(ArrayList<Match> matches) {
+        this.matches=matches;
+    }
 }

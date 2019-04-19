@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tunirobots.tunirobots.R;
+import com.tunirobots.tunirobots.Utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class FollowedTeamsFragment extends Fragment {
             public void onItemClick(int position) {
                 selectedCompetition = mySpinner.getText().toString();
                 //TODO: add the list of all teams accoring to challenge
-                mySpinner2.setItems(new String[]{"Equipe 1","Equipe 2","Equipe 3"});
+                mySpinner2.setItems(new String[]{"Equipe A","Equipe B","Equipe C"});
             }
 
         });
@@ -111,7 +112,7 @@ public class FollowedTeamsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            teams = new ArrayList<Team>();
+            teams = SharedPreferencesUtils.loadFollowedTeams(getActivity());
             return null;
         }
 

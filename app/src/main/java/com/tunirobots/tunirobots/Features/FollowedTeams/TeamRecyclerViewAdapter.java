@@ -1,5 +1,6 @@
 package com.tunirobots.tunirobots.Features.FollowedTeams;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tunirobots.tunirobots.R;
+import com.tunirobots.tunirobots.Utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 
@@ -67,12 +69,14 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
 
     private void deleteItem(int position) {
         teams.remove(position);
+        SharedPreferencesUtils.saveFollowedTeams((Activity)context,teams);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position,teams.size());
     }
 
     public void addItem(Team team, int position) {
         teams.add(position, team);
+        SharedPreferencesUtils.saveFollowedTeams((Activity)context,teams);
         notifyItemInserted(position);
     }
 }
