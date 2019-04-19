@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="testItems">
+        <item>LTCR</item>
+        <item>Challenge 24H</item>
+        <item>Junior A</item>
+        <item>Junior B</item>
+        <item>Sumo Challenge</item>
+        <item>Gadget Challenge</item>
+    </string-array>
+
+    <string-array name="equipeItems">
+        <item>Equipe 1</item>
+        <item>Equipe 2</item>
+        <item>Equipe 3</item>
+        <item>Equipe 4</item>
+        <item>Equipe 5</item>
+        <item>Equipe 6</item>
+    </string-array>
+</resources>
