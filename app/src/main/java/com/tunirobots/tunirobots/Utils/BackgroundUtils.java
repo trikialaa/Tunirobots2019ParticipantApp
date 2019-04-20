@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class BackgroundUtils {
 
-    public static void subscribeToTeam(final Team team, final Context context){
+    public static FirebaseEventListener subscribeToTeam(final Team team, final Context context){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String comp = team.getCompetition();
         String childName = "";
@@ -44,7 +44,7 @@ public class BackgroundUtils {
 
         DatabaseReference mRounds = mDatabase.child(childName).child("rounds");
         Log.e("TEST","made it to rounds");
-        mRounds.addValueEventListener(new ValueEventListener() {
+        ValueEventListener v = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Log.e("TEST","Starting data fetching");
@@ -95,12 +95,15 @@ public class BackgroundUtils {
                 Log.e("TEST","There's a cancelled problem");
             }
 
-        });
+        };
+        mRounds.addValueEventListener(v);
 
-
+        return new FirebaseEventListener(team,v);
     }
 
-    public static void subscribeToTeams(ArrayList<Team> teams,Context context){
-        for (Team team : teams) subscribeToTeam(team,context);
+    public ArrayList<FirebaseEventListener> subscribeToTeams(ArrayList<Team> teams,Context context){
+        ArrayList<FirebaseEventListener> listeners = new ArrayList<>();
+        for (Team team : teams) listeners.add(subscribeToTeam(team,context));
+        return listeners;
     }
 }

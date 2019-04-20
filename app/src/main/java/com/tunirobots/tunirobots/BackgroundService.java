@@ -9,8 +9,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tunirobots.tunirobots.Features.FollowedTeams.Team;
 import com.tunirobots.tunirobots.Utils.BackgroundUtils;
+import com.tunirobots.tunirobots.Utils.FirebaseEventListener;
 import com.tunirobots.tunirobots.Utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class BackgroundService extends Service {
 
     Context context;
     Thread thread;
+    ArrayList<FirebaseEventListener> listeners;
 
     public BackgroundService() {
         context=this;
@@ -40,7 +44,8 @@ public class BackgroundService extends Service {
            @Override
            public void run() {
                ArrayList<Team> teams = SharedPreferencesUtils.loadFollowedTeams(context);
-               BackgroundUtils.subscribeToTeams(teams,context);
+               BackgroundUtils backgroundUtils = new BackgroundUtils();
+               listeners = backgroundUtils.subscribeToTeams(teams,context);
            }
        });
 
@@ -52,6 +57,28 @@ public class BackgroundService extends Service {
 
     @Override
     public void onDestroy() {
+        for (FirebaseEventListener listener : listeners) {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            String comp = listener.getTeam().getCompetition();
+            String childName = "";
+
+            if (comp.equals("Challenge 24H")){
+                childName="24h";
+            } else if (comp.equals("Gadget Challenge")){
+                childName="gadget";
+            } else if (comp.equals("Junior A")){
+                childName="juniorA";
+            } else if (comp.equals("Junior B")){
+                childName="juniorB";
+            } else if (comp.equals("LTRC")){
+                childName="ltcr";
+            } else if (comp.equals("Sumo Challenge")){
+                childName="sumo";
+            }
+
+            DatabaseReference mRounds = mDatabase.child(childName).child("rounds");
+            mRounds.removeEventListener(listener.getV());
+        }
         thread.interrupt();
         super.onDestroy();
         Log.e("Thread","Destroyed");
