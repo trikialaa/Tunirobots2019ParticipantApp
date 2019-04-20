@@ -14,13 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tunirobots.tunirobots.R;
 import com.tunirobots.tunirobots.Utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.transform.Templates;
 
 import jrizani.jrspinner.JRSpinner;
 
@@ -50,7 +52,7 @@ public class FollowedTeamsFragment extends Fragment {
 
         mySpinner = getActivity().findViewById(R.id.spn_my_spinner);
         //TODO: add the list of all challenges
-        mySpinner.setItems(new String[]{"Challenge 24H","Junior A","Junior B"}); //this is important, you must set it to set the item list
+        mySpinner.setItems(new String[]{"Challenge 24H","Gadget Challenge","Junior A","Junior B","LTRC","Sumo Challenge"});
 
         selectedCompetition = null;
         selectedTeam = null;
@@ -60,8 +62,7 @@ public class FollowedTeamsFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 selectedCompetition = mySpinner.getText().toString();
-                //TODO: add the list of all teams accoring to challenge
-                mySpinner2.setItems(new String[]{"Equipe A","Equipe B","Equipe C"});
+                new TeamNamesUpdater().execute();
             }
 
         });
@@ -125,6 +126,63 @@ public class FollowedTeamsFragment extends Fragment {
             mAdapter = new TeamRecyclerViewAdapter(getActivity(),teams);
             recyclerView.setAdapter(mAdapter);
             recyclerView.setNestedScrollingEnabled(false);
+
+        }
+    }
+
+    public class TeamNamesUpdater extends AsyncTask<Void,Void,Void> {
+
+        ArrayList<String> teamNames;
+        String[] teamNamesArray;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            teamNames = new ArrayList<>();
+            String comp = selectedCompetition;
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            String childName = "";
+
+            if (comp.equals("Challenge 24H")){
+                childName="24h";
+            } else if (comp.equals("Gadget Challenge")){
+                childName="gadget";
+            } else if (comp.equals("Junior A")){
+                childName="juniorA";
+            } else if (comp.equals("Junior B")){
+                childName="juniorB";
+            } else if (comp.equals("LTRC")){
+                childName="ltcr";
+            } else if (comp.equals("Sumo Challenge")){
+                childName="sumo";
+            }
+
+            DatabaseReference mTeams = mDatabase.child(childName).child("teams");
+            mTeams.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                        teamNames.add(postSnapshot.getKey());
+                        Log.e("TEST",postSnapshot.getKey());
+                    }
+                    teamNamesArray = teamNames.toArray(new String[teamNames.size()]);
+                    mySpinner2.setItems(teamNamesArray);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("The read failed: " ,databaseError.toString());
+                }
+
+            });
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
 
         }
     }

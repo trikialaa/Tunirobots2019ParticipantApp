@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "347226507731",
+    "firebase_url": "https://tr-2k19.firebaseio.com",
+    "project_id": "tr-2k19",
+    "storage_bucket": "tr-2k19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347226507731:android:6e7fa37a4b09f17b",
+        "android_client_info": {
+          "package_name": "com.tunirobots.participantsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347226507731-df9b02tsp9brf04bo4pnursfp718umcq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tunirobots.participantsapp",
+            "certificate_hash": "596caf40020316dad6d005071764003c8ae3bdb0"
+          }
+        },
+        {
+          "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoIr7kJVxpSMQJJ0K1hgCLQ_n3Au_rv3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347226507731:android:2faee4eac2848254",
+        "android_client_info": {
+          "package_name": "com.tunirobots.staffapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347226507731-jsnfell4lulcnppsc5848v64e1eu52mk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tunirobots.staffapp",
+            "certificate_hash": "596caf40020316dad6d005071764003c8ae3bdb0"
+          }
+        },
+        {
+          "client_id": "347226507731-iercqb44q7ncv77nhrlt4uutefuhs95r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tunirobots.staffapp",
+            "certificate_hash": "252b52012da1228eac57b79c95670f79251c7699"
+          }
+        },
+        {
+          "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoIr7kJVxpSMQJJ0K1hgCLQ_n3Au_rv3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347226507731:android:febaca9efa7cd7fc",
+        "android_client_info": {
+          "package_name": "com.tunirobots.tunirobots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347226507731-ug78v71kctfrp743gggv890kjsjsmf5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tunirobots.tunirobots",
+            "certificate_hash": "f8255e9582476def385ce175c750414722beb33b"
+          }
+        },
+        {
+          "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoIr7kJVxpSMQJJ0K1hgCLQ_n3Au_rv3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347226507731-oliuerenctrvbofa7lb30ocov8159t37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

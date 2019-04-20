@@ -54,7 +54,7 @@ public class MatchsFragment extends Fragment {
 
         mySpinner = getActivity().findViewById(R.id.spn_my_spinner);
         //TODO: load list of all challenges from Firebase
-        mySpinner.setItems(new String[]{"Challenge 24H","Junior A","Junior B"}); //this is important, you must set it to set the item list
+        mySpinner.setItems(new String[]{"Challenge 24H","Gadget Challenge","Junior A","Junior B","LTRC","Sumo Challenge"}); //this is important, you must set it to set the item list
 
         selectedCompetition = null;
 

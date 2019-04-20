@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.FirebaseApp;
 import com.tunirobots.tunirobots.Features.FollowedTeams.FollowedTeamsFragment;
 import com.tunirobots.tunirobots.Features.FollowedTeams.Team;
 import com.tunirobots.tunirobots.Features.InsatMap.MapFragment;
@@ -16,10 +17,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
 
         // Actionbar logo
 
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment, new MatchsFragment(),null);
+            fragmentTransaction.add(R.id.fragment, new FollowedTeamsFragment(),null);
             fragmentTransaction.commit();
         }
 
