@@ -191,28 +191,15 @@ public class MatchsFragment extends Fragment {
             mTeams.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
+                    rawMatches = new ArrayList<>();
                     Log.e("TEST","Starting data fetching");
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         int round = Integer.parseInt(""+(postSnapshot.getKey().charAt(postSnapshot.getKey().length()-1)));
                         Log.e("TEST","round "+round);
-                        int currentMatch = -1 ;
-                        int position = -1;
                         for (DataSnapshot postSnapshot2: postSnapshot.getChildren()) {
                             FB_Match fb_match = postSnapshot2.getValue(FB_Match.class);
                             Log.e("TEST",fb_match.toString());
-                            position++;
-                            int nbrMatchsRestants;
-                            if (fb_match.getWinner()!=null) nbrMatchsRestants=(-1); //Match déja joué
-                            else {
-                                if (currentMatch==(-1)){ //Match en cours
-                                    currentMatch = position; // position du match en cours
-                                    nbrMatchsRestants=0;
-                                } else { //Match à venir
-                                    nbrMatchsRestants = position - currentMatch;
-                                }
-                            }
-                            
-                            Match rawMatch = new Match(comp,fb_match.getTeamA(),fb_match.getTeamB(),nbrMatchsRestants,fb_match.getWinner(),round);
+                            Match rawMatch = new Match(comp,fb_match.getTeamA(),fb_match.getTeamB(),(fb_match.getRemaining()).intValue(),fb_match.getWinner(),round);
                             rawMatches.add(rawMatch);
                     }
 

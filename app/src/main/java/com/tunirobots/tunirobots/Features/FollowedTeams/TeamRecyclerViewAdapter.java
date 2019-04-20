@@ -42,6 +42,7 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
             @Override
             public void onClick(View v) {
                 deleteItem(position);
+
             }
         });
 

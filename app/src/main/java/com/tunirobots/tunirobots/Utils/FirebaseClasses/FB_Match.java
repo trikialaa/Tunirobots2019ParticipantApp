@@ -5,6 +5,7 @@ public class FB_Match {
     private String teamA;
     private String teamB;
     private String winner;
+    private Long remaining;
 
     public FB_Match() {
     }
@@ -31,5 +32,13 @@ public class FB_Match {
 
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+
+    public Long getRemaining() {
+        return remaining;
+    }
+
+    public void setRemaining(Long remaining) {
+        this.remaining = remaining;
     }
 }

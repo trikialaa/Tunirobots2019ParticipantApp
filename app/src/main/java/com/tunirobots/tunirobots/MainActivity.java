@@ -1,5 +1,6 @@
 package com.tunirobots.tunirobots;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
 
+        // Background Service
+
+        Intent intent = new Intent(this, BackgroundService.class);
+        startService(intent);
+
         // Actionbar logo
 
         getSupportActionBar().setCustomView(R.layout.actionbar);
@@ -53,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment, new ContactFragment(),null);
+            fragmentTransaction.add(R.id.fragment, new FollowedTeamsFragment(),null);
             fragmentTransaction.commit();
         }
 
