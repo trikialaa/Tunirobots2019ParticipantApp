@@ -15,9 +15,15 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tunirobots.tunirobots.Features.FollowedTeams.Team;
 import com.tunirobots.tunirobots.Features.FollowedTeams.TeamRecyclerViewAdapter;
 import com.tunirobots.tunirobots.R;
+import com.tunirobots.tunirobots.Utils.FirebaseClasses.FB_Match;
 import com.tunirobots.tunirobots.Utils.MatchesFilters;
 import com.tunirobots.tunirobots.Utils.SharedPreferencesUtils;
 
@@ -63,6 +69,8 @@ public class MatchsFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 selectedCompetition = mySpinner.getText().toString();
+                Log.e("TEST","Executing match updating");
+                new MatchListUpdater().execute();
                 if (selectedCompetition != null){
                     FinalFilter f = new FinalFilter();
                     matches = f.filter(unfilteredMatches);
@@ -103,10 +111,6 @@ public class MatchsFragment extends Fragment {
         // RecyclerView
 
         unfilteredMatches = new ArrayList<Match>();
-        unfilteredMatches.add(new Match("Challenge 24H","Equipe A","Equipe B",-1,"A",0));
-        unfilteredMatches.add(new Match("Challenge 24H","Equipe A","Belja",-1,"B",0));
-        unfilteredMatches.add(new Match("Challenge 24H","ALAA","Equipe B",0,null,1));
-        unfilteredMatches.add(new Match("Challenge 24H","ALAA","Belja",3,null,2));
         matches=MatchesFilters.removeFinishedMatches(unfilteredMatches);
 
         new MatchsUpdater().execute();
@@ -151,6 +155,89 @@ public class MatchsFragment extends Fragment {
             mAdapter = new MatchRecyclerViewAdapter(getActivity(),matches);
             recyclerView.setAdapter(mAdapter);
             recyclerView.setNestedScrollingEnabled(false);
+        }
+    }
+
+    //TODO : Complete this class and add a refresh button
+    public class MatchListUpdater extends AsyncTask<Void,Void,Void> {
+
+        ArrayList<Match> rawMatches;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            rawMatches = new ArrayList<>();
+            final String comp = selectedCompetition;
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            String childName = "";
+
+
+            Log.e("TEST","Selection phase");
+            if (comp.equals("Challenge 24H")){
+                childName="24h";
+            } else if (comp.equals("Gadget Challenge")){
+                childName="gadget";
+            } else if (comp.equals("Junior A")){
+                childName="juniorA";
+            } else if (comp.equals("Junior B")){
+                childName="juniorB";
+            } else if (comp.equals("LTRC")){
+                childName="ltcr";
+            } else if (comp.equals("Sumo Challenge")){
+                childName="sumo";
+            }
+
+            DatabaseReference mTeams = mDatabase.child(childName).child("rounds");
+            Log.e("TEST","made it to rounds");
+            mTeams.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Log.e("TEST","Starting data fetching");
+                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                        int round = Integer.parseInt(""+(postSnapshot.getKey().charAt(postSnapshot.getKey().length()-1)));
+                        Log.e("TEST","round "+round);
+                        int currentMatch = -1 ;
+                        int position = -1;
+                        for (DataSnapshot postSnapshot2: postSnapshot.getChildren()) {
+                            FB_Match fb_match = postSnapshot2.getValue(FB_Match.class);
+                            Log.e("TEST",fb_match.toString());
+                            position++;
+                            int nbrMatchsRestants;
+                            if (fb_match.getWinner()!=null) nbrMatchsRestants=(-1); //Match déja joué
+                            else {
+                                if (currentMatch==(-1)){ //Match en cours
+                                    currentMatch = position; // position du match en cours
+                                    nbrMatchsRestants=0;
+                                } else { //Match à venir
+                                    nbrMatchsRestants = position - currentMatch;
+                                }
+                            }
+                            
+                            Match rawMatch = new Match(comp,fb_match.getTeamA(),fb_match.getTeamB(),nbrMatchsRestants,fb_match.getWinner(),round);
+                            rawMatches.add(rawMatch);
+                    }
+
+                }
+                    unfilteredMatches = rawMatches;
+                    FinalFilter f = new FinalFilter();
+                    matches = f.filter(unfilteredMatches);
+                    mAdapter.changeItems(matches);
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("TEST","There's a cancelled problem");
+                }
+
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.e("TEST","Post execute running too soon ?");
         }
     }
 

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment, new FollowedTeamsFragment(),null);
+            fragmentTransaction.add(R.id.fragment, new MatchsFragment(),null);
             fragmentTransaction.commit();
         }
 
