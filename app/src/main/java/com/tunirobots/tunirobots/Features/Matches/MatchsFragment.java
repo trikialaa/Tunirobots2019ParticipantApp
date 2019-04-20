@@ -80,6 +80,8 @@ public class MatchsFragment extends Fragment {
 
         });
 
+        //TODO: Save settings to SharedPreferences
+
         // Checkbox1 : afficher uniquement les équipes suivies
         cb1=getActivity().findViewById(R.id.cb1);
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -157,7 +159,6 @@ public class MatchsFragment extends Fragment {
         }
     }
 
-    //TODO : add a refresh button maybe ?
     public class MatchListUpdater extends AsyncTask<Void,Void,Void> {
 
         ArrayList<Match> rawMatches;
