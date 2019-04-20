@@ -97,6 +97,8 @@ public class FollowedTeamsFragment extends Fragment {
 
         // RecyclerView
 
+        //TODO: Maybe add round and state to the recycler view ?
+
         new FollowedTeamsFragment.FollowedTeamsUpdater().execute();
 
 

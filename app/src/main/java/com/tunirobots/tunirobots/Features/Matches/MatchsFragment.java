@@ -108,8 +108,6 @@ public class MatchsFragment extends Fragment {
         unfilteredMatches.add(new Match("Challenge 24H","ALAA","Equipe B",0,null,1));
         unfilteredMatches.add(new Match("Challenge 24H","ALAA","Belja",3,null,2));
         matches=MatchesFilters.removeFinishedMatches(unfilteredMatches);
-        for (Match m : unfilteredMatches) Log.e("TEST",String.valueOf(m.getRound()));
-        for (Match m : matches) Log.e("TEST",String.valueOf(m.getRound()));
 
         new MatchsUpdater().execute();
 
