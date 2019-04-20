@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_equipes"
+        android:icon="@drawable/team"
+        android:checked="true"
+        android:title="Équipes" />
+    <item
+        android:id="@+id/action_matchs"
+        android:icon="@drawable/match"
+        android:title="Matchs" />
+    <item
+        android:id="@+id/action_map"
+        android:icon="@drawable/mapy"
+        android:title="Carte" />
+    <item
+        android:id="@+id/action_contact"
+        android:icon="@drawable/contact"
+        android:title="Contact" />
+</menu>
