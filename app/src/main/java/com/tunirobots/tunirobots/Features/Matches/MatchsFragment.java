@@ -59,7 +59,6 @@ public class MatchsFragment extends Fragment {
         // Competition Spinner :
 
         mySpinner = getActivity().findViewById(R.id.spn_my_spinner);
-        //TODO: load list of all challenges from Firebase
         mySpinner.setItems(new String[]{"Challenge 24H","Gadget Challenge","Junior A","Junior B","LTRC","Sumo Challenge"}); //this is important, you must set it to set the item list
 
         selectedCompetition = null;
@@ -158,7 +157,7 @@ public class MatchsFragment extends Fragment {
         }
     }
 
-    //TODO : Complete this class and add a refresh button
+    //TODO : add a refresh button maybe ?
     public class MatchListUpdater extends AsyncTask<Void,Void,Void> {
 
         ArrayList<Match> rawMatches;

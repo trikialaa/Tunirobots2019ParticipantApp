@@ -51,7 +51,6 @@ public class FollowedTeamsFragment extends Fragment {
         // Competition Spinner :
 
         mySpinner = getActivity().findViewById(R.id.spn_my_spinner);
-        //TODO: add the list of all challenges
         mySpinner.setItems(new String[]{"Challenge 24H","Gadget Challenge","Junior A","Junior B","LTRC","Sumo Challenge"});
 
         selectedCompetition = null;
